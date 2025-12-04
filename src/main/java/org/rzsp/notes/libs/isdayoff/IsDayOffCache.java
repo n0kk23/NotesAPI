@@ -1,6 +1,6 @@
-package org.rzsp.notes.isdayoff;
+package org.rzsp.notes.libs.isdayoff;
 
-import org.rzsp.notes.isdayoff.enums.LocalesType;
+import org.rzsp.notes.libs.isdayoff.enums.LocalesType;
 
 import java.io.*;
 import java.text.SimpleDateFormat;

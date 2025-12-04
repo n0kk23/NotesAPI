@@ -15,7 +15,9 @@ public class Application {
      */
     public static void main(String[] args) {
         log.debug("App is started");
+
         SpringApplication.run(Application.class, args);
+
         log.debug("App is closed");
     }
 

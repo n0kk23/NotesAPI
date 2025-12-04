@@ -1,7 +1,7 @@
-package org.rzsp.notes.isdayoff;
+package org.rzsp.notes.libs.isdayoff;
 
 
-import org.rzsp.notes.isdayoff.enums.LocalesType;
+import org.rzsp.notes.libs.isdayoff.enums.LocalesType;
 
 /**
  * Builder для установки параметров
@@ -66,7 +66,7 @@ public class IsDayOffBuilder {
     /**
      * Указание старны, для которой проводить проверку
      * @param locale Страна из перечисления
-     * @see org.rzsp.notes.isdayoff.enums.LocalesType
+     * @see LocalesType
      */
     public IsDayOffBuilder setLocale(LocalesType locale) {
         this.locale = locale;

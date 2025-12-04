@@ -1,7 +1,7 @@
-package org.rzsp.notes.isdayoff;
+package org.rzsp.notes.libs.isdayoff;
 
-import org.rzsp.notes.isdayoff.enums.DayType;
-import org.rzsp.notes.isdayoff.enums.DirectionType;
+import org.rzsp.notes.libs.isdayoff.enums.DayType;
+import org.rzsp.notes.libs.isdayoff.enums.DirectionType;
 
 import javax.annotation.Nullable;
 import java.net.URI;
@@ -37,7 +37,7 @@ public class IsDayOff {
     /**
      * Создание экземпляра IsDayOff
      * @return IsDayOffBuilder для указания параметров
-     * @see org.rzsp.notes.isdayoff.IsDayOffBuilder
+     * @see IsDayOffBuilder
      */
     public static IsDayOffBuilder Builder() {
         return new IsDayOffBuilder();
@@ -63,7 +63,7 @@ public class IsDayOff {
     /**
      * Тип сегодняшнего дня
      * @return Тип текущего дня
-     * @see org.rzsp.notes.isdayoff.enums.DayType
+     * @see DayType
      */
     public DayType todayType() {
         Calendar today = Calendar.getInstance();
@@ -74,7 +74,7 @@ public class IsDayOff {
     /**
      * Тип завтрашнего дня
      * @return Тип завтрашнего дня
-     * @see org.rzsp.notes.isdayoff.enums.DayType
+     * @see DayType
      */
     public DayType tomorrowType() {
         Calendar tomorrow = Calendar.getInstance();
@@ -87,7 +87,7 @@ public class IsDayOff {
      * Тип конкретного дня
      * @param date день, который нужно проверить
      * @return Тип этого дня
-     * @see org.rzsp.notes.isdayoff.enums.DayType
+     * @see DayType
      */
     public DayType dayType(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -100,7 +100,7 @@ public class IsDayOff {
      * Тип всех дней конкретного месяца
      * @param date месяц, который нужно проверить
      * @return Массив IsDayOffDateType с датой и типом для каждого дня месяца
-     * @see org.rzsp.notes.isdayoff.IsDayOffDateType
+     * @see IsDayOffDateType
      */
     public List<IsDayOffDateType> daysTypeByMonth(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -114,7 +114,7 @@ public class IsDayOff {
      * Тип всех дней конкретного года
      * @param date год, для которого нужно провести проверку
      * @return Массив IsDayOffDateType с датой и типом для каждого дня года
-     * @see org.rzsp.notes.isdayoff.IsDayOffDateType
+     * @see IsDayOffDateType
      */
     public List<IsDayOffDateType> daysTypeByYear(Date date) {
         Calendar calendar = Calendar.getInstance();
@@ -149,7 +149,7 @@ public class IsDayOff {
      * @param startDate  Начало отрезка
      * @param endDate Конец
      * @return Массив IsDayOffDateType с датой и типом для каждого дня отрезка
-     * @see org.rzsp.notes.isdayoff.IsDayOffDateType
+     * @see IsDayOffDateType
      */
     public List<IsDayOffDateType> daysTypeByRange(Date startDate, Date endDate) {
         if (startDate.after(endDate)) {

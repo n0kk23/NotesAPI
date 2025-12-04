@@ -1,6 +1,6 @@
-package org.rzsp.notes.isdayoff;
+package org.rzsp.notes.libs.isdayoff;
 
-import org.rzsp.notes.isdayoff.enums.DayType;
+import org.rzsp.notes.libs.isdayoff.enums.DayType;
 
 import java.util.Date;
 
@@ -11,7 +11,7 @@ public class IsDayOffDateType {
     private Date date;
     /**
      * Тип дня
-     * @see org.rzsp.notes.isdayoff.enums.DayType
+     * @see DayType
      */
     private DayType dayType;
 

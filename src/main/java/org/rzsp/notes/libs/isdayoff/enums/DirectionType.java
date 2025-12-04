@@ -1,4 +1,4 @@
-package org.rzsp.notes.isdayoff.enums;
+package org.rzsp.notes.libs.isdayoff.enums;
 
 import javax.annotation.Nullable;
 

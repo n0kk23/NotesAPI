@@ -3,6 +3,7 @@ package org.rzsp.notes.notes;
 import lombok.extern.log4j.Log4j2;
 import org.rzsp.notes.days.DayService;
 import org.rzsp.notes.days.dto.DayNotesResponse;
+import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.notes.dto.NoteCreateRequest;
 import org.rzsp.notes.notes.dto.NoteResponse;
 import org.rzsp.notes.notes.mappers.NoteMapper;
@@ -70,6 +71,10 @@ public class NoteService {
             Long id
     ) {
         log.debug("Start deleting note by id: {}", id);
+
+        if (!noteRepository.existsById(id)) {
+            throw new NoteNotFoundException(id);
+        }
 
         noteRepository.deleteById(id);
 

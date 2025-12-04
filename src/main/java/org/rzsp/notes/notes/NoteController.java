@@ -1,6 +1,7 @@
 package org.rzsp.notes.notes;
 
 import jakarta.validation.Valid;
+import org.rzsp.notes.days.dto.DayNotesResponse;
 import org.rzsp.notes.notes.dto.NoteCreateRequest;
 import org.rzsp.notes.notes.dto.NoteResponse;
 import org.springframework.http.HttpStatus;
@@ -22,11 +23,11 @@ public class NoteController {
     }
 
     @GetMapping("/{date}")
-    public ResponseEntity<List<NoteResponse>> getNotesByDate(
+    public ResponseEntity<DayNotesResponse> getNotesByDate(
             @PathVariable LocalDate date
     ) {
         return ResponseEntity.ok(
-                noteService.getAllNotesByDate(date)
+                noteService.getNotesByDate(date)
         );
     }
 

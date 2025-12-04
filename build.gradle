@@ -21,7 +21,6 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-webmvc'
-    implementation("org.apache.logging.log4j:log4j-core:2.25.2")
     implementation("jakarta.validation:jakarta.validation-api:4.0.0-M1")
 
     compileOnly("org.projectlombok:lombok:1.18.42")

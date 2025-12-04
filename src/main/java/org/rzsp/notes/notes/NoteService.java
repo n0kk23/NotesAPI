@@ -29,14 +29,16 @@ public class NoteService {
         this.noteMapper = noteMapper;
     }
 
-    public DayNotesResponse getNotesByDate(LocalDate date) {
+    public DayNotesResponse getNotesByDate(
+            LocalDate date
+    ) {
         log.debug("Start getting all notes by date: {}", date);
 
         List<NoteResponse> notes = noteRepository.findAllByDateOrderByNumberAsc(date).stream()
                 .map(noteMapper::toResponse)
                 .toList();
 
-        DayNotesResponse day = dayService.getDay(date);
+        DayNotesResponse day = dayService.getInformationAboutHoliday(date);
 
         return DayNotesResponse.builder()
                 .isHoliday(day.isHoliday())

@@ -1,4 +1,4 @@
-package org.rzsp.notes.exceptionhandler;
+package org.rzsp.notes.exceptionHandler;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;

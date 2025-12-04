@@ -12,8 +12,14 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.Map;
 
+/**
+ * Сервис для работы с днями заметок.
+ */
 @Service
 public class DayService {
+    /**
+     * Хэш таблица с названиями праздников.
+     */
     private static final Map<MonthDay, String> HOLIDAYS = Map.ofEntries(
             Map.entry(MonthDay.of(12, 31), "Новый год"),
             Map.entry(MonthDay.of(1, 1), "Новый год"),
@@ -34,12 +40,21 @@ public class DayService {
 
     private final IsDayOff isDayOff;
 
+    /**
+     * Конструктор, инициализирующий библиотеку {@link IsDayOff } для российской локализации.
+     */
     public DayService() {
         this.isDayOff = IsDayOff.Builder() // почему метод с большой буквы :((((((((((
                 .setLocale(LocalesType.RUSSIA)
                 .build();
     }
 
+    /**
+     * Помещает информацию о выходном в ответ клиенту.
+     *
+     * @param date дата заметки
+     * @return {@link DayNotesResponse}
+     */
     public DayNotesResponse getInformationAboutHoliday(LocalDate date) {
         Date dateRequest = Date.from(
                 date.atStartOfDay(ZoneId.systemDefault())
@@ -59,6 +74,11 @@ public class DayService {
                 .build();
     }
 
+    /**
+     * Возвращает из хэш-таблицы HOLIDAYS название выходного.
+     * @param date дата заметки
+     * @return {@link String} - название выходного
+     */
     private static String getHolidayName(LocalDate date) {
         return HOLIDAYS.getOrDefault(MonthDay.from(date), "Выходной");
     }

@@ -44,14 +44,15 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseToHandler> handleNotValidArgumentException(
             MethodArgumentNotValidException e
     ) {
-        String message = e.getBindingResult()
-                .getFieldErrors()
-                .stream()
+        return build(HttpStatus.BAD_REQUEST, getExceptionMessage(e));
+    }
+
+    private String getExceptionMessage(MethodArgumentNotValidException e) {
+        return e.getBindingResult()
+                .getFieldErrors().stream()
                 .findFirst()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .orElse("Validation error");
-
-        return build(HttpStatus.BAD_REQUEST, message);
     }
 
     @ExceptionHandler(Exception.class)

@@ -41,19 +41,23 @@ public class DayService {
     private final IsDayOff isDayOff;
 
     /**
-     * Конструктор, инициализирующий библиотеку {@link IsDayOff } для российской локализации.
+     * Конструктор, инициализирующий библиотеку {@link IsDayOff }.
+     * setLocale(LocalesType.RUSSIA) - ставит российскую локализацию праздников
+     * setCache(false) - отключает кэширование запросов
      */
     public DayService() {
         this.isDayOff = IsDayOff.Builder() // почему метод с большой буквы :((((((((((
                 .setLocale(LocalesType.RUSSIA)
+                .setCache(false)
                 .build();
     }
 
     /**
      * Помещает информацию о выходном в ответ клиенту.
+     * Объект является построенным не до конца, окончательный вид принимает в методе getNotesByDate класса NoteService
      *
      * @param date дата заметки
-     * @return {@link DayNotesResponse}
+     * @return {@link DayNotesResponse} - не до конца построенный объект ответ клиенту
      */
     public DayNotesResponse getInformationAboutHoliday(LocalDate date) {
         Date dateRequest = Date.from(

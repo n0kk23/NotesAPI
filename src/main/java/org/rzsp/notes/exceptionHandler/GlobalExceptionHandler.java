@@ -16,7 +16,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class GlobalExceptionHandler {
     private final static String INTERNAL_SERVER_ERROR = "Something wrong with server, please try again later";
     private final static String NOTE_NOT_FOUND = "Note is not found. Please, check that note ID is correct";
-    private final static String INVALID_DATE_FORMAT = "Invalid date format. Must be yyyy-MM-dd";
+    private final static String INVALID_DATE_FORMAT = "Invalid date request. Must be yyyy-MM-dd format and had correct dates";
     private final static String NOT_FOUND_PATH = "Requested path is not found";
 
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
@@ -53,13 +53,6 @@ public class GlobalExceptionHandler {
                 .findFirst()
                 .map(error -> error.getField() + ": " + error.getDefaultMessage())
                 .orElse("Validation error");
-    }
-
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorResponseToHandler> handleException(
-            Exception e
-    ) {
-        return build(HttpStatus.INTERNAL_SERVER_ERROR, INTERNAL_SERVER_ERROR);
     }
 
     private ResponseEntity<ErrorResponseToHandler> build(

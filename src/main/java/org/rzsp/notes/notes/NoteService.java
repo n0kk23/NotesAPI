@@ -20,6 +20,13 @@ public class NoteService {
     private final DayService dayService;
     private final NoteMapper noteMapper;
 
+    /**
+     * Конструктор сервиса для работы с заметками.
+     *
+     * @param noteRepository репозиторий для доступа к данным заметок
+     * @param dayService сервис для работы с днями
+     * @param noteMapper преобразователь для сущностей и DTO заметок
+     */
     public NoteService(
             NoteRepository noteRepository,
             DayService dayService,
@@ -30,6 +37,12 @@ public class NoteService {
         this.noteMapper = noteMapper;
     }
 
+    /**
+     * Получает заметки по указанному в аргументе дате.
+     *
+     * @param date дата, заметки которой необходимо вернуть
+     * @return {@link DayNotesResponse} ответ, который включает в себя информацию о дне и заметках
+     */
     public DayNotesResponse getNotesByDate(
             LocalDate date
     ) {
@@ -48,6 +61,11 @@ public class NoteService {
                 .build();
     }
 
+    /**
+     * Создает сущность заметки на основании запрооса.
+     *
+     * @param request DTO запрос на создание сущности заметки
+     */
     @Transactional
     public void createNote(
             NoteCreateRequest request
@@ -67,6 +85,12 @@ public class NoteService {
         log.debug("Creating by request is ended");
     }
 
+    /**
+     * Удаляет заметку на основании указанного в аргументе индентификатора заметки.
+     *
+     * @param id уникальный индентификатор, по которому удаляется заметка
+     * @throws NoteNotFoundException исключение, выбрасывается в случае если по указанному ID заметки не существует-
+     */
     public void deleteNoteById(
             Long id
     ) {
@@ -81,11 +105,22 @@ public class NoteService {
         log.debug("Deleting by id is ended");
     }
 
+    /**
+     * Удаляет все заметки на указанную дату.
+     *
+     * @param date дата, заметки которой необходимо удалить
+     */
     @Transactional
     public void deleteAllNotesByDate(
             LocalDate date
     ) {
         log.debug("Start deleting all notes by date: {}", date);
+
+        boolean hasNotes = noteRepository.existsByDate(date);
+
+        if (!hasNotes) {
+            throw new NoteNotFoundException(date);
+        }
 
         noteRepository.deleteAllByDate(date);
 

@@ -14,8 +14,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Log4j2
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private final static String INTERNAL_SERVER_ERROR = "Something wrong with server, please try again later";
-    private final static String NOTE_NOT_FOUND = "Note is not found. Please, check that note ID is correct";
+    private final static String NOTE_NOT_FOUND = "Note is not found. Please, check date or id";
     private final static String INVALID_DATE_FORMAT = "Invalid date request. Must be yyyy-MM-dd format and had correct dates";
     private final static String NOT_FOUND_PATH = "Requested path is not found";
 

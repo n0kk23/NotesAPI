@@ -41,7 +41,7 @@ public class DayService {
     private final IsDayOff isDayOff;
 
     /**
-     * Конструктор, инициализирующий библиотеку {@link IsDayOff }.
+     * Конструктор, инициализирующий библиотеку {@link IsDayOff}.
      * setLocale(LocalesType.RUSSIA) - ставит российскую локализацию праздников
      * setCache(false) - отключает кэширование запросов
      */

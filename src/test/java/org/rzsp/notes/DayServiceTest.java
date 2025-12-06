@@ -43,8 +43,28 @@ class DayServiceTest {
     }
 
     @Test
-    void testNotWeekendDay() {
+    void testNotWeekendDayOne() {
         LocalDate date = LocalDate.of(2025, 12, 8);
+
+        DayNotesResponse response = dayService.getInformationAboutHoliday(date);
+
+        assertThat(response.isHoliday()).isFalse();
+        assertThat(response.holidayName()).isNull();
+    }
+
+    @Test
+    void testNotWeekendDayTwo() {
+        LocalDate date = LocalDate.of(2025, 6, 16);
+
+        DayNotesResponse response = dayService.getInformationAboutHoliday(date);
+
+        assertThat(response.isHoliday()).isFalse();
+        assertThat(response.holidayName()).isNull();
+    }
+
+    @Test
+    void testNotWeekendDayThree() {
+        LocalDate date = LocalDate.of(2025, 5, 12);
 
         DayNotesResponse response = dayService.getInformationAboutHoliday(date);
 

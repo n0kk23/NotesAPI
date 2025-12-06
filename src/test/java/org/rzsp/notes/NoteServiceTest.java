@@ -9,7 +9,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.rzsp.notes.days.DayService;
 import org.rzsp.notes.days.dto.DayNotesResponse;
-import org.rzsp.notes.exceptions.DateNotHaveNote;
+import org.rzsp.notes.exceptions.DateNotHaveNoteException;
 import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.notes.NoteEntity;
 import org.rzsp.notes.notes.NoteRepository;
@@ -116,7 +116,7 @@ class NoteServiceTest {
     void testExceptionWhenDateDoesntHaveAnyNotes() {
         when(noteRepository.existsByDate(date)).thenReturn(false);
 
-        assertThrows(DateNotHaveNote.class, () -> noteService.deleteAllNotesByDate(date));
+        assertThrows(DateNotHaveNoteException.class, () -> noteService.deleteAllNotesByDate(date));
         verify(noteRepository, never()).deleteAllByDate(any());
     }
 

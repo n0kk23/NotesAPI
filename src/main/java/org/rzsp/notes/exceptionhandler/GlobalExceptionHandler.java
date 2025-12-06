@@ -1,7 +1,7 @@
 package org.rzsp.notes.exceptionhandler;
 
 import lombok.extern.log4j.Log4j2;
-import org.rzsp.notes.exceptions.DateNotHaveNote;
+import org.rzsp.notes.exceptions.DateNotHaveNoteException;
 import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.exceptions.dto.ErrorResponseToHandler;
 import org.springframework.http.HttpStatus;
@@ -19,7 +19,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
     private final static String NOTE_NOT_FOUND = "Note with this ID is not exist";
-    private final static String INVALID_DATE_FORMAT = "Invalid date request. Must be yyyy-MM-dd format and had correct dates";
+    private final static String INVALID_DATE_FORMAT_OR_NONEXISTENT_DATE = "Invalid date request. Must be yyyy-MM-dd format and had correct date";
     private final static String NOT_FOUND_PATH = "Requested path is not found";
     private final static String DATE_NOT_HAVE_ANY_NOTE = "This date doesn't have any note";
 
@@ -32,6 +32,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseToHandler> handleMethodNotAllowed(
             HttpRequestMethodNotSupportedException e
     ) {
+        log.error("Handler catch HttpRequestMethodNotSupportedException: {}", e.getMessage());
         return build(HttpStatus.METHOD_NOT_ALLOWED, NOT_FOUND_PATH);
     }
 
@@ -44,18 +45,20 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseToHandler> handleMismatchException(
             MethodArgumentTypeMismatchException e
     ) {
-        return build(HttpStatus.BAD_REQUEST, INVALID_DATE_FORMAT);
+        log.error("Handler catch MethodArgumentTypeMismatchException: {}", e.getMessage());
+        return build(HttpStatus.BAD_REQUEST, INVALID_DATE_FORMAT_OR_NONEXISTENT_DATE);
     }
 
     /**
-     * Обрабатывает исключение {@link DateNotHaveNote}.
+     * Обрабатывает исключение {@link DateNotHaveNoteException}.
      *
      * @return {@link ResponseEntity} ответ для клиента
      */
-    @ExceptionHandler(DateNotHaveNote.class)
+    @ExceptionHandler(DateNotHaveNoteException.class)
     public ResponseEntity<ErrorResponseToHandler> handleDateNotHaveAnyNoteException(
-            DateNotHaveNote e
+            DateNotHaveNoteException e
     ) {
+        log.error("Handler catch DateNotHaveNoteException: {}", e.getMessage());
         return build(HttpStatus.NOT_FOUND, DATE_NOT_HAVE_ANY_NOTE);
     }
 
@@ -68,6 +71,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseToHandler> handleNoteNotFoundException(
             NoteNotFoundException e
     ) {
+        log.error("Handler catch NoteNotFoundException: {}", e.getMessage());
         return build(HttpStatus.NOT_FOUND, NOTE_NOT_FOUND);
     }
 
@@ -80,6 +84,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseToHandler> handleNoHandlerFoundException(
             NoHandlerFoundException e
     ) {
+        log.error("Handler catch NoHandlerFoundException: {}", e.getMessage());
         return build(HttpStatus.NOT_FOUND, NOT_FOUND_PATH);
     }
 
@@ -92,6 +97,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponseToHandler> handleNotValidArgumentException(
             MethodArgumentNotValidException e
     ) {
+        log.error("Handler catch MethodArgumentNotValidException: {}", e.getMessage());
         return build(HttpStatus.BAD_REQUEST, getExceptionMessage(e));
     }
 

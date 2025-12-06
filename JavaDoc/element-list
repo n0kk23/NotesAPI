@@ -1,0 +1,11 @@
+org.rzsp.notes
+org.rzsp.notes.days
+org.rzsp.notes.days.dto
+org.rzsp.notes.exceptionhandler
+org.rzsp.notes.exceptions
+org.rzsp.notes.exceptions.dto
+org.rzsp.notes.libs.isdayoff
+org.rzsp.notes.libs.isdayoff.enums
+org.rzsp.notes.notes
+org.rzsp.notes.notes.dto
+org.rzsp.notes.notes.mappers

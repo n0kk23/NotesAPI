@@ -3,7 +3,7 @@ package org.rzsp.notes.notes;
 import lombok.extern.log4j.Log4j2;
 import org.rzsp.notes.days.DayService;
 import org.rzsp.notes.days.dto.DayNotesResponse;
-import org.rzsp.notes.exceptions.DateNotHaveNote;
+import org.rzsp.notes.exceptions.DateNotHaveNoteException;
 import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.notes.dto.NoteCreateRequest;
 import org.rzsp.notes.notes.dto.NoteResponse;
@@ -78,10 +78,7 @@ public class NoteService {
     ) {
         log.debug("Creating note by request: {}", request);
 
-        Long numberForNote = noteRepository
-                .findTopByDateOrderByNumberDesc(request.date())
-                .map(NoteEntity::getNumber)
-                .orElse(0L) + 1;
+        Long numberForNote = getBiggestNumberOfNotesInDay(request.date());
 
         NoteEntity newNote = noteMapper.toEntity(request);
         newNote.setNumber(numberForNote);
@@ -89,6 +86,18 @@ public class NoteService {
         noteRepository.save(newNote);
 
         log.debug("Creating by request is end");
+    }
+
+    /**
+     * Возвращает наибольший номер заметки в указанном дне, необходим для реализации логики автоинкремента номера при создании заметок.
+     *
+     * @param date дата, наибольший номер заметки которой необходимо узнать
+     * @return наибольшоий номер у заметки в указанном дне
+     */
+    private Long getBiggestNumberOfNotesInDay(LocalDate date) {
+        return noteRepository.findTopByDateOrderByNumberDesc(date)
+                .map(NoteEntity::getNumber)
+                .orElse(0L) + 1;
     }
 
     /**
@@ -125,7 +134,7 @@ public class NoteService {
         boolean hasNotes = noteRepository.existsByDate(date);
 
         if (!hasNotes) {
-            throw new DateNotHaveNote(date);
+            throw new DateNotHaveNoteException(date);
         }
 
         noteRepository.deleteAllByDate(date);

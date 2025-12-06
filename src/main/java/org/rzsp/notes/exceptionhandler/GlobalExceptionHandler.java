@@ -1,6 +1,7 @@
 package org.rzsp.notes.exceptionhandler;
 
 import lombok.extern.log4j.Log4j2;
+import org.rzsp.notes.exceptions.DateNotHaveAnyNote;
 import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.exceptions.dto.ErrorResponseToHandler;
 import org.springframework.http.HttpStatus;
@@ -14,10 +15,10 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 @Log4j2
 @RestControllerAdvice
 public class GlobalExceptionHandler {
-    private final static String NOTE_NOT_FOUND = "This ID or DATE doesn't have any note. Please, check your request";
+    private final static String NOTE_NOT_FOUND = "Note with this ID is not exist";
     private final static String INVALID_DATE_FORMAT = "Invalid date request. Must be yyyy-MM-dd format and had correct dates";
     private final static String NOT_FOUND_PATH = "Requested path is not found";
-    private final static String PROBLEM_WITH_SERVER = "Unknown problem with server. Please, try again latter";
+    private final static String DATE_NOT_HAVE_ANY_NOTE = "This date doesn't have any note";
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponseToHandler> handleMethodNotAllowed(
@@ -31,6 +32,13 @@ public class GlobalExceptionHandler {
             MethodArgumentTypeMismatchException e
     ) {
         return build(HttpStatus.BAD_REQUEST, INVALID_DATE_FORMAT);
+    }
+
+    @ExceptionHandler(DateNotHaveAnyNote.class)
+    public ResponseEntity<ErrorResponseToHandler> handleDateNotHaveAnyNoteException(
+            DateNotHaveAnyNote e
+    ) {
+        return build(HttpStatus.NOT_FOUND, DATE_NOT_HAVE_ANY_NOTE);
     }
 
     @ExceptionHandler(NoteNotFoundException.class)

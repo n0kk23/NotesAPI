@@ -1,5 +1,6 @@
 package org.rzsp.notes.days;
 
+import lombok.extern.log4j.Log4j2;
 import org.rzsp.notes.days.dto.DayNotesResponse;
 import org.rzsp.notes.libs.isdayoff.IsDayOff;
 import org.rzsp.notes.libs.isdayoff.enums.DayType;
@@ -15,6 +16,7 @@ import java.util.Map;
 /**
  * Сервис для работы с днями заметок.
  */
+@Log4j2
 @Service
 public class DayService {
     /**
@@ -46,10 +48,14 @@ public class DayService {
      * setCache(false) - отключает кэширование запросов
      */
     public DayService() {
+        log.debug("Set russian locale to day service");
+
         this.isDayOff = IsDayOff.Builder() // почему метод с большой буквы :((((((((((
                 .setLocale(LocalesType.RUSSIA)
                 .setCache(false)
                 .build();
+
+        log.debug("Russian locale is set");
     }
 
     /**
@@ -60,6 +66,8 @@ public class DayService {
      * @return {@link DayNotesResponse} - не до конца построенный объект ответ клиенту
      */
     public DayNotesResponse getInformationAboutHoliday(LocalDate date) {
+        log.debug("Start getting information about holiday in date {}", date.toString());
+
         Date dateRequest = Date.from(
                 date.atStartOfDay(ZoneId.systemDefault())
                         .toInstant());
@@ -72,6 +80,8 @@ public class DayService {
                     .holidayName(getHolidayName(date))
                     .build();
         }
+
+        log.debug("Getting information about holiday is end");
 
         return DayNotesResponse.builder()
                 .isHoliday(false)

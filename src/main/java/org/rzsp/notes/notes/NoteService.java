@@ -54,6 +54,8 @@ public class NoteService {
 
         DayNotesResponse day = dayService.getInformationAboutHoliday(date);
 
+        log.debug("Getting all notes by date is end");
+
         return DayNotesResponse.builder()
                 .isHoliday(day.isHoliday())
                 .holidayName(day.holidayName())
@@ -82,7 +84,7 @@ public class NoteService {
 
         noteRepository.save(newNote);
 
-        log.debug("Creating by request is ended");
+        log.debug("Creating by request is end");
     }
 
     /**
@@ -102,7 +104,7 @@ public class NoteService {
 
         noteRepository.deleteById(id);
 
-        log.debug("Deleting by id is ended");
+        log.debug("Deleting by id is end");
     }
 
     /**
@@ -124,7 +126,7 @@ public class NoteService {
 
         noteRepository.deleteAllByDate(date);
 
-        log.debug("Deleting by date is ended");
+        log.debug("Deleting by date is end");
     }
 
 }

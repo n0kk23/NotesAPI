@@ -1,15 +1,13 @@
-package org.rzsp.notes.exceptionHandler;
+package org.rzsp.notes.exceptionhandler;
 
 import lombok.extern.log4j.Log4j2;
-import org.apache.coyote.Response;
 import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.exceptions.dto.ErrorResponseToHandler;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
@@ -19,6 +17,7 @@ public class GlobalExceptionHandler {
     private final static String NOTE_NOT_FOUND = "This ID or DATE doesn't have any note. Please, check your request";
     private final static String INVALID_DATE_FORMAT = "Invalid date request. Must be yyyy-MM-dd format and had correct dates";
     private final static String NOT_FOUND_PATH = "Requested path is not found";
+    private final static String PROBLEM_WITH_SERVER = "Unknown problem with server. Please, try again latter";
 
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponseToHandler> handleMethodNotAllowed(
@@ -58,6 +57,7 @@ public class GlobalExceptionHandler {
     /**
      * Выдает сообщение исключения.
      * Нужен для раскрытия сообщения получаемого через валидацию Jakarta
+     *
      * @param e исключение
      * @return String - сообщение, которое передает исключение
      */

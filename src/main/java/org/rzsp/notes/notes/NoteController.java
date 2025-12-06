@@ -1,6 +1,7 @@
 package org.rzsp.notes.notes;
 
 import jakarta.validation.Valid;
+import lombok.extern.log4j.Log4j2;
 import org.rzsp.notes.days.dto.DayNotesResponse;
 import org.rzsp.notes.notes.dto.NoteCreateRequest;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
+@Log4j2
 @RestController
 @RequestMapping("notes")
 public class NoteController {
@@ -35,6 +37,8 @@ public class NoteController {
     public ResponseEntity<DayNotesResponse> getNotesByDate(
             @PathVariable LocalDate date
     ) {
+        log.debug("GET request to get all notes by date: {}", date.toString());
+
         return ResponseEntity.ok(noteService.getNotesByDate(date));
     }
 
@@ -47,6 +51,8 @@ public class NoteController {
     public ResponseEntity<Void> createNoteOnDate(
             @RequestBody @Valid NoteCreateRequest request
     ) {
+        log.debug("POST request to create note {}", request);
+
         noteService.createNote(request);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .build();
@@ -61,6 +67,8 @@ public class NoteController {
     public ResponseEntity<Void> deleteNoteById(
             @PathVariable Long id
     ) {
+        log.debug("DELETE request to delete note by ID {}", id);
+
         noteService.deleteNoteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
                 .build();
@@ -75,6 +83,8 @@ public class NoteController {
     public ResponseEntity<Void> deleteAllNotesByDate(
             @PathVariable LocalDate date
     ) {
+        log.debug("DELETE request to delete note by date {}", date.toString());
+
         noteService.deleteAllNotesByDate(date);
         return ResponseEntity.status(HttpStatus.NO_CONTENT)
                 .build();

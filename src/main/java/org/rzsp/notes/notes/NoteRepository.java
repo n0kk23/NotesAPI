@@ -6,6 +6,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Репозиторий заметок.
+ */
 public interface NoteRepository extends JpaRepository<NoteEntity, Long> {
     /**
      * Возвращает сущность заметок в порядке их номера от меньшего к большему.

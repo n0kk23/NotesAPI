@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 
+/**
+ * REST-контроллер заметок.
+ */
 @Log4j2
 @RestController
 @RequestMapping("notes")
@@ -33,7 +36,7 @@ public class NoteController {
      * @param date дата
      * @return {@link DayNotesResponse} - ответ в виде информации о дне и заметок на этот день
      */
-    @GetMapping("/{date}")
+    @GetMapping("/get_notes/{date}")
     public ResponseEntity<DayNotesResponse> getNotesByDate(
             @PathVariable LocalDate date
     ) {
@@ -47,7 +50,7 @@ public class NoteController {
      *
      * @param request запрос на создание заметки
      */
-    @PostMapping
+    @PostMapping("/create_note")
     public ResponseEntity<Void> createNoteOnDate(
             @RequestBody @Valid NoteCreateRequest request
     ) {

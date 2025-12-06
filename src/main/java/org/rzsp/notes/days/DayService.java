@@ -32,10 +32,16 @@ public class DayService {
             Map.entry(MonthDay.of(1, 6), "Новый год"),
             Map.entry(MonthDay.of(1, 7), "Новый год"),
             Map.entry(MonthDay.of(1, 8), "Новый год"),
+            Map.entry(MonthDay.of(1, 9), "Новый год"),
+            Map.entry(MonthDay.of(1, 10), "Новый год"),
+            Map.entry(MonthDay.of(1, 11), "Новый год"),
             Map.entry(MonthDay.of(2, 23), "День защитника Отечества"),
             Map.entry(MonthDay.of(3, 8), "Международный женский день"),
+            Map.entry(MonthDay.of(3, 9), "Международный женский день"),
             Map.entry(MonthDay.of(5, 1), "Праздник труда"),
+            Map.entry(MonthDay.of(5, 3), "Праздник труда"),
             Map.entry(MonthDay.of(5, 9), "День Победы"),
+            Map.entry(MonthDay.of(5, 11), "День Победы"),
             Map.entry(MonthDay.of(6, 12), "День России"),
             Map.entry(MonthDay.of(11, 4), "День народного единства")
     );

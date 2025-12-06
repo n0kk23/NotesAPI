@@ -1,7 +1,7 @@
 package org.rzsp.notes.exceptionhandler;
 
 import lombok.extern.log4j.Log4j2;
-import org.rzsp.notes.exceptions.DateNotHaveAnyNote;
+import org.rzsp.notes.exceptions.DateNotHaveNote;
 import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.exceptions.dto.ErrorResponseToHandler;
 import org.springframework.http.HttpStatus;
@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+/**
+ * Класс обработчик ошибок
+ */
 @Log4j2
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -20,6 +23,11 @@ public class GlobalExceptionHandler {
     private final static String NOT_FOUND_PATH = "Requested path is not found";
     private final static String DATE_NOT_HAVE_ANY_NOTE = "This date doesn't have any note";
 
+    /**
+     * Обрабатывает исключение {@link HttpRequestMethodNotSupportedException}.
+     *
+     * @return {@link ResponseEntity} ответ для клиента
+     */
     @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
     public ResponseEntity<ErrorResponseToHandler> handleMethodNotAllowed(
             HttpRequestMethodNotSupportedException e
@@ -27,6 +35,11 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.METHOD_NOT_ALLOWED, NOT_FOUND_PATH);
     }
 
+    /**
+     * Обрабатывает исключение {@link MethodArgumentTypeMismatchException}.
+     *
+     * @return {@link ResponseEntity} ответ для клиента
+     */
     @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     public ResponseEntity<ErrorResponseToHandler> handleMismatchException(
             MethodArgumentTypeMismatchException e
@@ -34,13 +47,23 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.BAD_REQUEST, INVALID_DATE_FORMAT);
     }
 
-    @ExceptionHandler(DateNotHaveAnyNote.class)
+    /**
+     * Обрабатывает исключение {@link DateNotHaveNote}.
+     *
+     * @return {@link ResponseEntity} ответ для клиента
+     */
+    @ExceptionHandler(DateNotHaveNote.class)
     public ResponseEntity<ErrorResponseToHandler> handleDateNotHaveAnyNoteException(
-            DateNotHaveAnyNote e
+            DateNotHaveNote e
     ) {
         return build(HttpStatus.NOT_FOUND, DATE_NOT_HAVE_ANY_NOTE);
     }
 
+    /**
+     * Обрабатывает исключение {@link NoteNotFoundException}.
+     *
+     * @return {@link ResponseEntity} ответ для клиента
+     */
     @ExceptionHandler(NoteNotFoundException.class)
     public ResponseEntity<ErrorResponseToHandler> handleNoteNotFoundException(
             NoteNotFoundException e
@@ -48,6 +71,11 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.NOT_FOUND, NOTE_NOT_FOUND);
     }
 
+    /**
+     * Обрабатывает исключение {@link MethodArgumentNotValidException}.
+     *
+     * @return {@link ResponseEntity} ответ для клиента
+     */
     @ExceptionHandler(NoHandlerFoundException.class)
     public ResponseEntity<ErrorResponseToHandler> handleNoHandlerFoundException(
             NoHandlerFoundException e
@@ -55,6 +83,11 @@ public class GlobalExceptionHandler {
         return build(HttpStatus.NOT_FOUND, NOT_FOUND_PATH);
     }
 
+    /**
+     * Обрабатывает исключение {@link MethodArgumentNotValidException}.
+     *
+     * @return {@link ResponseEntity} ответ для клиента
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponseToHandler> handleNotValidArgumentException(
             MethodArgumentNotValidException e

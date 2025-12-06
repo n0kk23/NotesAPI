@@ -1,11 +1,13 @@
 package org.rzsp.notes.notes;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 
 import java.time.LocalDate;
 
+/**
+ * Сущность заметки.
+ */
 @Getter @Setter
 @Builder
 @NoArgsConstructor @AllArgsConstructor
@@ -22,7 +24,6 @@ public class NoteEntity {
     private Long number;
 
     @Column(name = "description")
-    @Size(min = 1, max = 1024)
     private String description;
 
     @Column(name = "date")

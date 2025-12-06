@@ -3,6 +3,7 @@ package org.rzsp.notes.notes;
 import lombok.extern.log4j.Log4j2;
 import org.rzsp.notes.days.DayService;
 import org.rzsp.notes.days.dto.DayNotesResponse;
+import org.rzsp.notes.exceptions.DateNotHaveNote;
 import org.rzsp.notes.exceptions.NoteNotFoundException;
 import org.rzsp.notes.notes.dto.NoteCreateRequest;
 import org.rzsp.notes.notes.dto.NoteResponse;
@@ -13,6 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * Сервис заметок.
+ */
 @Log4j2
 @Service
 public class NoteService {
@@ -121,7 +125,7 @@ public class NoteService {
         boolean hasNotes = noteRepository.existsByDate(date);
 
         if (!hasNotes) {
-            throw new NoteNotFoundException(date);
+            throw new DateNotHaveNote(date);
         }
 
         noteRepository.deleteAllByDate(date);
